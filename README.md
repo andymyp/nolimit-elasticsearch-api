@@ -1,73 +1,120 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+<a id="readme-top"></a>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+<!-- PROJECT SHIELDS -->
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
-## Description
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <h3 align="center">NOLIMIT-ELASTICSEARCH-API</h3>
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+  <p align="center">
+    Project backend for technical test
+    <br />
+  </p>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li><a href="#built-with">Built With</a></li>
+    <li><a href="#prerequisites">Prerequisites</a></li>
+    <li><a href="#installation">Installation</a></li>
+    <li><a href="#usage">Usage</a></li>
+  </ol>
+</details>
+<br />
+
+<!-- ABOUT THE PROJECT -->
+
+## Built With
+
+This project built with Node.js, Nest.js, Elasticsearch, and Swagger
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- GETTING STARTED -->
+
+## Prerequisites
+
+- NPM
+  ```sh
+  npm install npm@latest -g
+  ```
+- Elasticsearch (recommended Elasticsearch v6.8.0)
+- cURL
+
+<br />
 
 ## Installation
 
-```bash
-$ npm install
+1. Clone the repo
+   ```sh
+   git clone https://github.com/andymyp/nolimit-elasticsearch-api.git
+   ```
+2. Install NPM packages
+   ```sh
+   npm install
+   ```
+3. Create `.env` file from `.env.example`
+4. Create index and mapping into Elasticsearch with:
+
+```sh
+# change PATH to your clone folder before
+curl -X PUT "http://127.0.0.1:9200/companydatabase" \ -H "Content-Type: application/json" \ --data-binary "@PATH\nolimit-elasticsearch-api\EmployeeMapping.json"
 ```
 
-## Running the app
+5. import employees data into Elasticsearch with:
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```sh
+# change PATH to your clone folder before
+curl -X POST "http://127.0.0.1:9200/companydatabase/_bulk" --header "Content-Type: application/json" --data-binary "@PATH\nolimit-elasticsearch-api\Employees50K.json"
 ```
 
-## Test
+6. Verify Data with `http://127.0.0.1:9200/companydatabase/_count?pretty=true`:
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```json
+{
+  "count": 50000,
+  "_shards": {
+    "total": 5,
+    "successful": 5,
+    "skipped": 0,
+    "failed": 0
+  }
+}
 ```
 
-## Support
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+<!-- USAGE EXAMPLES -->
 
-## Stay in touch
+## Usage
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+1. Run
 
-## License
+   ```sh
+   # development
+   npm run start
 
-Nest is [MIT licensed](LICENSE).
+   # watch mode
+   npm run start:dev
+
+   # production mode
+   npm run start:prod
+   ```
+
+2. API Docs
+   ```sh
+   http://localhost:3000/docs
+   ```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/andymyp
