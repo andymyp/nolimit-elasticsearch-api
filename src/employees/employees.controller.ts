@@ -44,4 +44,12 @@ export class EmployeesController {
       'employees',
     );
   }
+
+  @Get('marital-status-distribution')
+  async getMaritalStatusDistribution(): Promise<any> {
+    return await this.elasticService.getMaritalStatusDistribution(
+      'companydatabase',
+      'employees',
+    );
+  }
 }

@@ -115,4 +115,32 @@ export class ElasticService {
       gender_distribution: result.body.aggregations.gender_distribution.buckets,
     };
   }
+
+  async getMaritalStatusDistribution(
+    index: string,
+    type: string,
+  ): Promise<any> {
+    const result = await this.elasticsearchService.search({
+      index,
+      type,
+      body: {
+        size: 0,
+        aggs: {
+          marital_status_distribution: {
+            terms: {
+              field: 'MaritalStatus.keyword',
+              size: 10,
+            },
+          },
+        },
+      },
+    });
+
+    return {
+      index: index,
+      type: type,
+      marital_status_distribution:
+        result.body.aggregations.marital_status_distribution.buckets,
+    };
+  }
 }
