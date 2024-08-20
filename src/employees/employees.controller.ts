@@ -6,7 +6,18 @@ export class EmployeesController {
   constructor(private readonly elasticService: ElasticService) {}
 
   @Get('count')
-  async countEmployees(): Promise<number> {
-    return await this.elasticService.countDocuments('companydatabase');
+  async countEmployees(): Promise<any> {
+    return await this.elasticService.countDocuments(
+      'companydatabase',
+      'employees',
+    );
+  }
+
+  @Get('average-salary')
+  async getAverageSalary(): Promise<number> {
+    return await this.elasticService.calculateAverageSalary(
+      'companydatabase',
+      'employees',
+    );
   }
 }
