@@ -71,4 +71,12 @@ export class EmployeesController {
       'employees',
     );
   }
+
+  @Get('designation-distribution')
+  async getDesignationDistribution(): Promise<any> {
+    return await this.elasticService.getDesignationDistribution(
+      'companydatabase',
+      'employees',
+    );
+  }
 }

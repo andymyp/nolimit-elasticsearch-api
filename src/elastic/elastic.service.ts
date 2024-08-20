@@ -199,4 +199,28 @@ export class ElasticService {
       top_interests: result.body.aggregations.top_interests.buckets,
     };
   }
+
+  async getDesignationDistribution(index: string, type: string): Promise<any> {
+    const result = await this.elasticsearchService.search({
+      index,
+      type,
+      body: {
+        size: 0,
+        aggs: {
+          designation_distribution: {
+            terms: {
+              field: 'Designation.keyword',
+              size: 10,
+            },
+          },
+        },
+      },
+    });
+
+    return {
+      index: index,
+      type: type,
+      distribution: result.body.aggregations.designation_distribution.buckets,
+    };
+  }
 }
