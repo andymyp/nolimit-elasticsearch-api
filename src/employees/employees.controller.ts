@@ -36,4 +36,12 @@ export class EmployeesController {
       'employees',
     );
   }
+
+  @Get('gender-distribution')
+  async getGenderDistribution(): Promise<any> {
+    return await this.elasticService.getGenderDistribution(
+      'companydatabase',
+      'employees',
+    );
+  }
 }

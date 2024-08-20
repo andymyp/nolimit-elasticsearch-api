@@ -91,4 +91,28 @@ export class ElasticService {
       age_distribution: result.body.aggregations.age_distribution.buckets,
     };
   }
+
+  async getGenderDistribution(index: string, type: string): Promise<any> {
+    const result = await this.elasticsearchService.search({
+      index,
+      type,
+      body: {
+        size: 0,
+        aggs: {
+          gender_distribution: {
+            terms: {
+              field: 'Gender.keyword',
+              size: 10,
+            },
+          },
+        },
+      },
+    });
+
+    return {
+      index: index,
+      type: type,
+      gender_distribution: result.body.aggregations.gender_distribution.buckets,
+    };
+  }
 }
