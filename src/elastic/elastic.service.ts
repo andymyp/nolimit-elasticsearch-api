@@ -7,6 +7,6 @@ export class ElasticService {
 
   async countDocuments(index: string): Promise<number> {
     const result = await this.elasticsearchService.count({ index });
-    return result.count;
+    return result.body.count;
   }
 }
