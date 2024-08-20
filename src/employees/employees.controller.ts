@@ -28,4 +28,12 @@ export class EmployeesController {
       'employees',
     );
   }
+
+  @Get('age-distribution')
+  async getAgeDistribution(): Promise<any> {
+    return await this.elasticService.getAgeDistribution(
+      'companydatabase',
+      'employees',
+    );
+  }
 }

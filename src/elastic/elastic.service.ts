@@ -66,4 +66,29 @@ export class ElasticService {
       max_salary: result.body.aggregations.max_salary.value,
     };
   }
+
+  async getAgeDistribution(index: string, type: string): Promise<any> {
+    const result = await this.elasticsearchService.search({
+      index,
+      type,
+      body: {
+        size: 0,
+        aggs: {
+          age_distribution: {
+            histogram: {
+              field: 'Age',
+              interval: 5,
+              min_doc_count: 1,
+            },
+          },
+        },
+      },
+    });
+
+    return {
+      index: index,
+      type: type,
+      age_distribution: result.body.aggregations.age_distribution.buckets,
+    };
+  }
 }
