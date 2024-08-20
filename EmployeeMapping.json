@@ -1,0 +1,46 @@
+{
+  "mappings": {
+    "employees": {
+      "properties": {
+        "FirstName": { "type": "text" },
+        "LastName": { "type": "text" },
+        "Designation": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword"
+            }
+          }
+        },
+        "Salary": { "type": "integer" },
+        "DateOfJoining": { "type": "date", "format": "yyyy-MM-dd" },
+        "Address": { "type": "text" },
+        "Gender": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword"
+            }
+          }
+        },
+        "Age": { "type": "integer" },
+        "MaritalStatus": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword"
+            }
+          }
+        },
+        "Interests": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword"
+            }
+          }
+        }
+      }
+    }
+  }
+}
