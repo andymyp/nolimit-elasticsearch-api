@@ -63,4 +63,12 @@ export class EmployeesController {
       interval,
     );
   }
+
+  @Get('top-interests')
+  async getTopInterests(): Promise<any> {
+    return await this.elasticService.getTopInterests(
+      'companydatabase',
+      'employees',
+    );
+  }
 }

@@ -175,4 +175,28 @@ export class ElasticService {
         result.body.aggregations.date_of_joining_distribution.buckets,
     };
   }
+
+  async getTopInterests(index: string, type: string): Promise<any> {
+    const result = await this.elasticsearchService.search({
+      index,
+      type,
+      body: {
+        size: 0,
+        aggs: {
+          top_interests: {
+            terms: {
+              field: 'Interests.keyword',
+              size: 10,
+            },
+          },
+        },
+      },
+    });
+
+    return {
+      index: index,
+      type: type,
+      top_interests: result.body.aggregations.top_interests.buckets,
+    };
+  }
 }
