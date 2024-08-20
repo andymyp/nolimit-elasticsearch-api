@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { ElasticService } from 'src/elastic/elastic.service';
 
 @Controller('employees')
@@ -50,6 +50,17 @@ export class EmployeesController {
     return await this.elasticService.getMaritalStatusDistribution(
       'companydatabase',
       'employees',
+    );
+  }
+
+  @Get('date-of-joining-distribution')
+  async getDateOfJoiningDistribution(
+    @Query('interval') interval: string = 'month',
+  ): Promise<any> {
+    return await this.elasticService.getDateOfJoiningDistribution(
+      'companydatabase',
+      'employees',
+      interval,
     );
   }
 }

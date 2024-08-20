@@ -88,7 +88,7 @@ export class ElasticService {
     return {
       index: index,
       type: type,
-      age_distribution: result.body.aggregations.age_distribution.buckets,
+      distribution: result.body.aggregations.age_distribution.buckets,
     };
   }
 
@@ -112,7 +112,7 @@ export class ElasticService {
     return {
       index: index,
       type: type,
-      gender_distribution: result.body.aggregations.gender_distribution.buckets,
+      distribution: result.body.aggregations.gender_distribution.buckets,
     };
   }
 
@@ -139,8 +139,40 @@ export class ElasticService {
     return {
       index: index,
       type: type,
-      marital_status_distribution:
+      distribution:
         result.body.aggregations.marital_status_distribution.buckets,
+    };
+  }
+
+  async getDateOfJoiningDistribution(
+    index: string,
+    type: string,
+    interval: string,
+  ): Promise<any> {
+    const result = await this.elasticsearchService.search({
+      index,
+      type,
+      body: {
+        size: 0,
+        aggs: {
+          date_of_joining_distribution: {
+            date_histogram: {
+              field: 'DateOfJoining',
+              interval,
+              format: 'yyyy-MM-dd',
+              min_doc_count: 1,
+            },
+          },
+        },
+      },
+    });
+
+    return {
+      index: index,
+      type: type,
+      interval: interval,
+      distribution:
+        result.body.aggregations.date_of_joining_distribution.buckets,
     };
   }
 }
