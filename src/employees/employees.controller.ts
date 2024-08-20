@@ -20,4 +20,12 @@ export class EmployeesController {
       'employees',
     );
   }
+
+  @Get('min-max-salary')
+  async getSalaryRange(): Promise<any> {
+    return await this.elasticService.findMinAndMaxSalary(
+      'companydatabase',
+      'employees',
+    );
+  }
 }

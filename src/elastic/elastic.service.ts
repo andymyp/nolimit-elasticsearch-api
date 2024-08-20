@@ -37,4 +37,33 @@ export class ElasticService {
       average_salary: result.body.aggregations.average_salary.value,
     };
   }
+
+  async findMinAndMaxSalary(index: string, type: string): Promise<any> {
+    const result = await this.elasticsearchService.search({
+      index,
+      type,
+      body: {
+        size: 0,
+        aggs: {
+          min_salary: {
+            min: {
+              field: 'Salary',
+            },
+          },
+          max_salary: {
+            max: {
+              field: 'Salary',
+            },
+          },
+        },
+      },
+    });
+
+    return {
+      index: index,
+      type: type,
+      min_salary: result.body.aggregations.min_salary.value,
+      max_salary: result.body.aggregations.max_salary.value,
+    };
+  }
 }
